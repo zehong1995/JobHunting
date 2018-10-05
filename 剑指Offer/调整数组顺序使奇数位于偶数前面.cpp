@@ -29,3 +29,13 @@ public:
         }
     }
 };
+
+bool cmp(int x) { //奇数返回真
+    return (x & 1) == 1;
+}
+class Solution {
+public:
+    void reOrderArray(vector<int> &array) {
+        stable_partition(array.begin(),array.end(),cmp);
+    }
+};

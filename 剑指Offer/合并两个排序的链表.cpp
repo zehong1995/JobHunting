@@ -4,9 +4,17 @@
  * 题意：
  * 输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。
  * 思路：
- * 和归并排序一样，模拟后返回链表头。
+ * 和归并排序一样，模拟后返回链表头。但根据链表的特性，后面只需要两个if就可以，不用再遍历
  */
  
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
 class Solution {
 public:
     ListNode* Merge(ListNode* pHead1, ListNode* pHead2)
@@ -24,15 +32,11 @@ public:
                 pHead2 = pHead2->next;
             }
         }
-        while(pHead1 != NULL) {
+        if (pHead1 != NULL) {
             cur->next = pHead1;
-            cur = pHead1;
-            pHead1 = pHead1->next;
         }
-        while(pHead2 != NULL) {
+        if (pHead2 != NULL) {
             cur->next = pHead2;
-            cur = pHead2;
-            pHead2 = pHead2->next;
         }
         return head->next;
     }

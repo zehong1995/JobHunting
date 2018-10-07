@@ -26,7 +26,7 @@ public:
         }
         path.push_back(root -> val);
         if(sum == expectNumber) {
-            ans.push_back(path);
+            ans.push_back(path); //此处不要return，因为左/右结点可能为0
         }
         if(root -> left != NULL) {
             UpdatePath(root -> left, ans, path, sum, expectNumber);

@@ -1,5 +1,3 @@
-
-//#include "Sort.h"
 class SelectSort : public Sort{
 public:
     void doSort() override;
@@ -7,7 +5,6 @@ private:
     void selectSort(vector<int>&v);
 };
 void SelectSort::doSort() {
-    int n = num.size();
     selectSort(num);
 }
 void SelectSort::selectSort(vector<int>&v) {

@@ -1,33 +1,40 @@
-#include "Sort.h"
-class QuickSort : public Sort{
+class MergeSort : public Sort{
 public:
     void doSort() override;
 private:
-    int Partion(vector<int>&num, int from, int to);
-    void quickSort(vector<int>&num, int from, int to);
+    void mergeSort(vector<int>&num, int from, int to);
+    void merge(vector<int>&num, int from, int mid, int to);
 };
-void QuickSort::doSort() {
+void MergeSort::doSort() {
     int n = num.size();
-    quickSort(num, 0, n - 1);
+    mergeSort(num, 0, n - 1);
 }
-int QuickSort::Partion(vector<int>&num, int from, int to) {
-    int pos = rand() % (to - from + 1);
-    swap(num[from], num[from + pos]);
-    int l = from, r = to, cmp = num[from];
-    while(l < r) {
-        while(l < r && num[r] >= cmp) r--;
-        swap(num[r], num[l]);
-        while(l < r && num[l] < cmp) l++;
-        swap(num[l], num[r]);
-    }
-    num[l] = cmp;
-    return l;
-}
-void QuickSort::quickSort(vector<int>&num, int from, int to) {
-    if(from >= to) {
+void MergeSort::mergeSort(vector<int>&num, int from, int to) {
+    if (from >= to) {
         return;
     }
-    int pos = Partion(num, from, to);
-    quickSort(num, from, pos - 1);
-    quickSort(num, pos + 1, to);
+    int mid = from + to >> 1;
+    mergeSort(num, from, mid);
+    mergeSort(num, mid + 1, to);
+    merge(num, from, mid, to);
+}
+void MergeSort::merge(vector<int>&num, int from, int mid, int to) {
+    vector<int>tmp;
+    int pos1 = from, pos2 = mid + 1;
+    while(pos1 <= mid && pos2 <= to) {
+        if (num[pos1] < num[pos2]) {
+            tmp.push_back(num[pos1++]);
+        } else {
+            tmp.push_back(num[pos2++]);
+        }
+    }
+    while(pos1 <= mid) {
+        tmp.push_back(num[pos1++]);
+    }
+    while(pos2 <= to) {
+        tmp.push_back(num[pos2++]);
+    }
+    for (int i = from; i <= to; ++ i) {
+        num[i] = tmp[i - from];
+    }
 }
